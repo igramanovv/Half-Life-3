@@ -2,17 +2,41 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>HALF-LIFE 3: BLACK SIGNAL — Version 1.4.1</title>
+<title>HALF-LIFE 3: BLACK SIGNAL — Version 1.4.2</title>
 <style>
 :root{--g:#9cff7a;--c:#79e7ff}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050809;color:#eaf1ee;font-family:Arial,sans-serif}canvas{display:block;width:100%;height:100%}
 #hud{position:fixed;inset:0;pointer-events:none;text-shadow:0 2px 6px #000}#brand{position:absolute;left:16px;top:14px;font-size:11px;letter-spacing:2px;color:#bdc9c4}#brand b{color:var(--g)}#objective{position:absolute;right:15px;top:14px;max-width:260px;background:#061013dc;border-right:2px solid var(--g);padding:10px 12px;text-align:right;font-size:12px;line-height:1.45}#objective small{display:block;color:var(--g);letter-spacing:1.5px;margin-bottom:4px}#cross{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%)}#cross:before,#cross:after{content:"";position:absolute;background:#e5ffe8;box-shadow:0 0 5px var(--g)}#cross:before{width:1px;height:14px;left:7px;top:1px}#cross:after{height:1px;width:14px;left:1px;top:7px}#stats{position:absolute;bottom:15px;left:15px;background:#061013dd;border:1px solid #ffffff22;padding:9px 12px;font-size:11px;line-height:1.7}#stats strong{color:var(--g);font-size:15px}#weapon{position:absolute;right:17px;bottom:16px;text-align:right;background:#061013dd;padding:9px 12px;font-size:11px;border:1px solid #ffffff22}#weapon strong{font-size:15px;color:var(--c)}#hint,#toast{display:none;position:absolute;left:50%;transform:translateX(-50%);background:#020708e8;border:1px solid #9cff7a66;padding:10px 14px;text-align:center;font-size:13px;max-width:90vw}#hint{bottom:19%}#toast{top:68%;color:#d2ffd9}
 #screen{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,30px);overflow:auto;background:radial-gradient(ellipse at 68% 42%,#1b3438ee,#030607f7 72%)}.panel{position:relative;width:min(1060px,100%);min-height:min(560px,92vh);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(220px,.9fr);align-items:center;gap:clamp(18px,3vw,38px);background:linear-gradient(115deg,#071013f7 0%,#071013ee 56%,#091719df 100%);border:1px solid #9cff7a66;padding:clamp(20px,4vw,42px);box-shadow:0 0 70px #000;overflow:hidden}.menu-copy{position:relative;z-index:1}.gordon-art{position:relative;align-self:stretch;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#31514b88,transparent 65%)}.gordon-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#071013 0%,transparent 35%,#07101355 100%);pointer-events:none}.gordon-art svg{height:min(70vh,520px);width:100%;max-width:410px;filter:drop-shadow(0 0 22px #9cff7a22)}.menu-actions{display:flex;flex-wrap:wrap;gap:8px}.menu-actions button{margin-top:15px}.secondary{background:#17272a;color:#d9e8e2;border:1px solid #79e7ff66}.fullscreen-toggle{position:fixed;z-index:2;top:48px;left:15px;margin:0;padding:9px 11px;background:#061013dd;color:#dfffe4;border:1px solid #9cff7a77;font-size:10px;pointer-events:auto;display:none}#hud{pointer-events:none}#hud #brand{pointer-events:none}@media(max-width:680px){.panel{grid-template-columns:1fr;gap:8px;min-height:auto}.gordon-art{min-height:180px;max-height:230px;grid-row:1}.gordon-art svg{height:230px}.gordon-art:after{background:linear-gradient(0deg,#071013 0%,transparent 35%,#07101333 100%)}.menu-copy{grid-row:2}#objective{max-width:190px;font-size:10px}}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--g);margin-bottom:14px}h1{font-size:clamp(32px,7vw,58px);line-height:.95;margin:0;letter-spacing:-2px}h1 span{color:var(--g)}.sub{color:#aebbb6;line-height:1.6;font-size:14px;max-width:500px}button{border:0;background:var(--g);color:#07110a;font-weight:bold;letter-spacing:1px;padding:13px 18px;cursor:pointer;margin-top:15px}button:hover{filter:brightness(1.15)}.small{font-size:11px;color:#82918b;line-height:1.7;margin-top:17px}
 #dialogue{display:none;position:fixed;z-index:4;left:50%;bottom:5%;transform:translateX(-50%);width:min(700px,92vw);background:#04090cee;border:1px solid #79e7ff77;padding:17px 20px;box-shadow:0 10px 40px #000}#who{font-size:10px;color:var(--c);letter-spacing:2px;margin-bottom:7px}#line{font-size:15px;line-height:1.5}#next{font-size:10px;color:var(--g);letter-spacing:1.5px;text-align:right;margin-top:10px}
 #puzzle{display:none;position:fixed;inset:0;z-index:7;background:#020506e8;align-items:center;justify-content:center;padding:18px}.pbox{width:min(380px,100%);background:#091216;border:1px solid #79e7ff88;padding:23px;text-align:center}.pbox h2{font-size:18px;letter-spacing:2px;color:var(--c);margin:0}.pbox p{color:#aabbb5;font-size:13px;line-height:1.5}#digits{font-size:25px;letter-spacing:12px;color:var(--g);padding:16px;background:#030809;border:1px solid #ffffff1c;margin:13px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.grid button{margin:0;padding:12px;background:#142329;color:white;border:1px solid #ffffff22;font-size:17px}#mobile{display:none;position:fixed;z-index:3;inset:auto 12px 85px;justify-content:space-between;pointer-events:none}.pad{display:grid;grid-template-columns:repeat(3,42px);gap:4px;pointer-events:auto}.pad button{margin:0;padding:12px 0;background:#071013bb;color:white;border:1px solid #ffffff44;touch-action:none}@media(pointer:coarse){#mobile{display:flex}#hint{bottom:29%}}
+
+#intro{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(ellipse at 50% 45%,#15282b,#020405 75%);cursor:pointer}
+#intro:before{content:"";position:absolute;inset:8%;border:1px solid #9cff7a2b;box-shadow:inset 0 0 80px #79e7ff08}
+.intro-inner{position:relative;max-width:760px;animation:introFade 3.4s ease both}
+.intro-mark{font-size:clamp(10px,2vw,14px);letter-spacing:.48em;color:#9cff7a;margin-bottom:32px}
+.intro-title{font-size:clamp(34px,8vw,76px);letter-spacing:.12em;font-weight:900;color:#eaf1ee;text-shadow:0 0 24px #79e7ff44}
+.intro-sub{font-size:clamp(10px,2vw,13px);letter-spacing:.28em;color:#79e7ff;margin-top:14px}
+.intro-continue{margin-top:64px;color:#9aa9a4;font-size:11px;letter-spacing:.2em;animation:blink 1.2s infinite}
+@keyframes introFade{0%{opacity:0;transform:scale(1.04);filter:blur(4px)}20%,75%{opacity:1;transform:scale(1);filter:blur(0)}100%{opacity:1}}
+@keyframes blink{50%{opacity:.35}}
+#settings{display:none;position:fixed;z-index:9;inset:0;background:#020506eF;align-items:center;justify-content:center;padding:18px}
+.settings-box{width:min(460px,100%);background:linear-gradient(140deg,#0b171a,#05090a);border:1px solid #9cff7a88;padding:clamp(20px,4vw,32px);box-shadow:0 0 70px #000}
+.settings-box h2{margin:0 0 8px;font-size:25px;letter-spacing:2px;color:#9cff7a}
+.settings-box p{color:#9eafaa;font-size:13px;line-height:1.5}
+.setting-row{margin:22px 0 8px;display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}
+#sensitivity{width:100%;accent-color:#9cff7a;cursor:pointer}
+.setting-value{color:#79e7ff;font-variant-numeric:tabular-nums}
+.settings-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.settings-actions button{flex:1;min-width:120px;margin:0}
+.menu-actions .secondary{margin-top:15px}
+@media(max-width:680px){.intro-continue{margin-top:42px}.settings-box{max-height:90vh;overflow:auto}}
 </style></head><body>
+<div id="intro" role="button" tabindex="0" aria-label="Продолжить запуск">
+ <div class="intro-inner"><div class="intro-mark">BLACK MESA TRANSIT SYSTEM</div><div class="intro-title">BLACK SIGNAL</div><div class="intro-sub">A FAN-MADE HALF-LIFE EXPERIENCE</div><div class="intro-continue">НАЖМИ, ЧТОБЫ ПРОДОЛЖИТЬ</div></div>
+</div>
 <canvas id="cv"></canvas>
 <div id="hud"><div id="brand"><b>BLACK SIGNAL</b> // FAN PROTOTYPE</div><div id="objective"><small>ТЕКУЩАЯ ЦЕЛЬ</small><span id="goal">Найти источник сигнала</span></div><div id="cross"></div><div id="hint"></div><div id="toast"></div><div id="stats">ЗДОРОВЬЕ: <strong id="hp">100%</strong><br>БРОНЯ: <span id="armor">25%</span><br>ПРОГРЕСС: <span id="prog">0/3</span></div><div id="weapon"><span id="weaponName">ИМПУЛЬСНЫЙ ПИСТОЛЕТ</span><br><strong id="ammo">12 / ∞</strong></div></div>
-<div id="screen"><div class="panel"><div class="menu-copy"><div class="eyebrow">VERSION 1.4.1 // BLACK SIGNAL UPDATE</div><h1>HALF-LIFE <span>3</span></h1><div style="color:#79e7ff;letter-spacing:4px;font-size:12px;margin:10px 0 18px">BLACK SIGNAL</div><p class="sub">Сигнал из комплекса «Каскад» снова ожил. Гордон Фримен отправляется в заброшенный исследовательский сектор, где после аварии реальность начала вести себя странно.</p><p class="sub">Версия 1.4.1: свободный обзор камеры вверх, вниз и вокруг. Исследуй сектор X-9, используй новое оружие и выясни, что скрывается по ту сторону сигнала.</p><div class="menu-actions"><button id="start">НАЧАТЬ СМЕНУ</button><button id="fullscreenMenu" class="secondary">ПОЛНЫЙ ЭКРАН ⛶</button></div><div class="small">WASD — движение · мышь — обзор · E — взаимодействие · ЛКМ/Space — огонь · 1/2 — оружие · R — перезарядка · ESC — отпустить мышь<br>На телефоне: экранные кнопки, тап по экрану — взаимодействие.</div></div><div class="gordon-art" aria-label="Портрет Гордона Фримена">
+<div id="screen"><div class="panel"><div class="menu-copy"><div class="eyebrow">VERSION 1.4.2 // BLACK SIGNAL UPDATE</div><h1>HALF-LIFE <span>3</span></h1><div style="color:#79e7ff;letter-spacing:4px;font-size:12px;margin:10px 0 18px">BLACK SIGNAL</div><p class="sub">Сигнал из комплекса «Каскад» снова ожил. Гордон Фримен отправляется в заброшенный исследовательский сектор, где после аварии реальность начала вести себя странно.</p><p class="sub">Версия 1.4.2: настройки чувствительности мыши, сцена запуска, музыка меню и звуки шагов. Исследуй сектор X-9 и выясни, что скрывается по ту сторону сигнала.</p><div class="menu-actions"><button id="start">НАЧАТЬ СМЕНУ</button><button id="settingsOpen" class="secondary">НАСТРОЙКИ ⚙</button><button id="fullscreenMenu" class="secondary">ПОЛНЫЙ ЭКРАН ⛶</button></div><div class="small">WASD — движение · мышь — обзор · E — взаимодействие · ЛКМ/Space — огонь · 1/2 — оружие · R — перезарядка · ESC — отпустить мышь · настройки — чувствительность<br>На телефоне: экранные кнопки, тап по экрану — взаимодействие.</div></div><div class="gordon-art" aria-label="Портрет Гордона Фримена">
 <svg viewBox="0 0 420 560" role="img" aria-label="Гордон Фримен в детализированном оранжевом HEV-костюме">
 <defs>
  <linearGradient id="hev" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffbd62"/><stop offset=".42" stop-color="#d8752c"/><stop offset="1" stop-color="#6d321b"/></linearGradient>
@@ -60,7 +84,8 @@
 <path d="M98 402l14 7 M308 409l14 -7" stroke="#9cff7a" stroke-width="3"/>
 <text x="209" y="518" font-size="13" fill="#e7f5df" text-anchor="middle" letter-spacing="4">LAMBDA</text>
 <text x="209" y="540" font-size="9" fill="#9cff7a" text-anchor="middle" letter-spacing="3">GORDON FREEMAN // HEV MARK IV</text>
-</svg><div style="position:absolute;bottom:12px;right:12px;color:#9cff7a;font-size:9px;letter-spacing:2px">G. FREEMAN // HEV</div></div></div></div></div><button id="fullscreenBtn" class="fullscreen-toggle">ПОЛНЫЙ ЭКРАН ⛶</button>
+</svg><div style="position:absolute;bottom:12px;right:12px;color:#9cff7a;font-size:9px;letter-spacing:2px">G. FREEMAN // HEV</div></div></div></div></div><div id="settings"><div class="settings-box"><div class="eyebrow">BLACK SIGNAL // CONFIGURATION</div><h2>НАСТРОЙКИ</h2><p>Настрой управление под себя. Чувствительность применяется сразу.</p><div class="setting-row"><label for="sensitivity">ЧУВСТВИТЕЛЬНОСТЬ МЫШИ</label><span id="sensitivityValue" class="setting-value">1.00×</span></div><input id="sensitivity" type="range" min="0.25" max="3" step="0.05" value="1"><div class="setting-row"><span>ПОЛНЫЙ ЭКРАН</span><span class="setting-value">F11 или кнопка ниже</span></div><div class="settings-actions"><button id="settingsFullscreen" class="secondary">ПОЛНЫЙ ЭКРАН ⛶</button><button id="settingsClose">НАЗАД</button></div></div></div>
+<button id="fullscreenBtn" class="fullscreen-toggle">ПОЛНЫЙ ЭКРАН ⛶</button>
 <div id="dialogue"><div id="who">НЕИЗВЕСТНЫЙ</div><div id="line"></div><div id="next">E / КЛИК — ПРОДОЛЖИТЬ</div></div>
 <div id="puzzle"><div class="pbox"><h2>ПАНЕЛЬ ПИТАНИЯ</h2><p>Аварийный код — первые три простых числа.</p><div id="digits">_ _ _</div><div class="grid" id="keygrid"></div><button id="clear" style="width:100%;background:#26343a;color:white">СБРОСИТЬ</button><button id="pExit" style="width:100%;margin-top:7px;background:#172024;color:#aab8b3">ОТМЕНА</button></div></div>
 <div id="mobile"><div class="pad"><span></span><button data-m="forward">▲</button><span></span><button data-m="left">◀</button><button data-m="back">▼</button><button data-m="right">▶</button></div><div class="pad"><button data-m="turnleft">↶</button><button data-m="use">E</button><button data-m="fire">●</button><button data-m="turnright">↷</button></div></div>
@@ -82,11 +107,32 @@ function showLine(){if(!dialog){$('dialogue').style.display='none';return}$('who
 function nextLine(){if(!dialog)return;if(++dialog.i<dialog.lines.length)showLine();else{const d=dialog.done;dialog=null;$('dialogue').style.display='none';if(d)d()}}
 function toast(s){$('toast').textContent=s;$('toast').style.display='block';toastTimer=2.3}
 function objective(s){$('goal').textContent=s}
-let audioCtx=null,ambientStarted=false,lastStepSound=0;
+let audioCtx=null,ambientStarted=false,lastStepSound=0,mouseSensitivity=1,menuMusicTimer=null,menuMusicOn=false,menuMusicStep=0;
 function audio(){if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)()}if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}
 function tone(freq=440,duration=.08,type='sawtooth',volume=.035,endFreq=null){try{const ac=audio(),o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(freq,ac.currentTime);if(endFreq)o.frequency.exponentialRampToValueAtTime(Math.max(1,endFreq),ac.currentTime+duration);g.gain.setValueAtTime(volume,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+duration);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+duration)}catch(e){}}
 function noise(duration=.12,volume=.025,filter=700){try{const ac=audio(),n=Math.floor(ac.sampleRate*duration),buf=ac.createBuffer(1,n,ac.sampleRate),data=buf.getChannelData(0);for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*(1-i/n);const src=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();src.buffer=buf;f.type='lowpass';f.frequency.value=filter;g.gain.value=volume;src.connect(f);f.connect(g);g.connect(ac.destination);src.start()}catch(e){}}
-function sfx(kind){if(kind==='shot'){tone(weaponMode===1?105:150,.14,'sawtooth',.09,55);tone(weaponMode===1?520:900,.055,'square',.025,220);noise(weaponMode===1?.18:.1,weaponMode===1?.06:.045,1400);tone(58,.2,'sine',.03,28)}else if(kind==='reload'){noise(.22,.04,850);tone(300,.09,'triangle',.03,500)}else if(kind==='use'){tone(620,.08,'sine',.035,880)}else if(kind==='hit'){tone(110,.2,'sawtooth',.07,40);noise(.14,.045,500)}else if(kind==='power'){tone(90,.55,'sawtooth',.04,35);tone(220,.4,'sine',.025,70)}else if(kind==='step'){noise(.045,.012,240)}else if(kind==='alarm'){tone(440,.28,'sawtooth',.025,330)}}
+function sfx(kind){if(kind==='shot'){tone(weaponMode===1?105:150,.14,'sawtooth',.09,55);tone(weaponMode===1?520:900,.055,'square',.025,220);noise(weaponMode===1?.18:.1,weaponMode===1?.06:.045,1400);tone(58,.2,'sine',.03,28)}else if(kind==='reload'){noise(.22,.04,850);tone(300,.09,'triangle',.03,500)}else if(kind==='use'){tone(620,.08,'sine',.035,880)}else if(kind==='hit'){tone(110,.2,'sawtooth',.07,40);noise(.14,.045,500)}else if(kind==='power'){tone(90,.55,'sawtooth',.04,35);tone(220,.4,'sine',.025,70)}else if(kind==='step'){noise(.055,.018,210);tone(72,.045,'triangle',.012,48)}else if(kind==='alarm'){tone(440,.28,'sawtooth',.025,330)}}
+
+// Оригинальная процедурная sci-fi тема меню; это не запись Hazardous Environments.
+function startMenuMusic(){
+ if(menuMusicOn)return;menuMusicOn=true;
+ try{
+  const ac=audio();if(ac.state==='suspended')ac.resume();
+  const master=ac.createGain();master.gain.value=.12;master.connect(ac.destination);
+  const notes=[55,65.41,73.42,82.41,65.41,55,49,61.74];
+  const melody=[220,0,261.63,0,293.66,261.63,196,0,220,0,164.81,0,196,220,146.83,0];
+  let step=0;
+  const play=(freq,dur,vol,type='triangle')=>{if(!freq)return;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(.0001,ac.currentTime);g.gain.linearRampToValueAtTime(vol,ac.currentTime+.08);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+dur);o.connect(g);g.connect(master);o.start();o.stop(ac.currentTime+dur+.02)};
+  const tick=()=>{if(!menuMusicOn)return;const n=step%notes.length;play(notes[n],1.65,.075,'sine');play(notes[n]*2,0.85,.018,'sine');play(melody[step%melody.length],.72,.026,'triangle');step++};
+  tick();menuMusicTimer=setInterval(tick,620);
+  window._blackSignalMenuGain=master;
+ }catch(e){}
+}
+function stopMenuMusic(){
+ menuMusicOn=false;if(menuMusicTimer){clearInterval(menuMusicTimer);menuMusicTimer=null}
+ try{const ac=audioCtx,g=window._blackSignalMenuGain;if(ac&&g){g.gain.setTargetAtTime(0,ac.currentTime,.15);setTimeout(()=>{try{g.disconnect()}catch(e){}},700)}}catch(e){}
+ window._blackSignalMenuGain=null;
+}
 function startAmbient(){if(ambientStarted)return;ambientStarted=true;try{const ac=audio(),o=ac.createOscillator(),g=ac.createGain(),f=ac.createBiquadFilter();o.type='sawtooth';o.frequency.value=48;f.type='lowpass';f.frequency.value=95;g.gain.value=.018;o.connect(f);f.connect(g);g.connect(ac.destination);o.start()}catch(e){}}
 function progress(){$('prog').textContent=[noteRead,power,terminalDone].filter(Boolean).length+'/3'}
 function selectWeapon(mode){
@@ -230,10 +276,20 @@ function render(){
  if(health<100){c.fillStyle=`rgba(180,0,0,${(100-health)/260})`;c.fillRect(0,0,W,H)}
 }
 function update(dt){if(!playing||puzzle)return;let speed=2.4*dt,moveX=0,moveY=0;if(keys.w||keys.arrowup||touch.forward)moveY+=1;if(keys.s||keys.arrowdown||touch.back)moveY-=1;if(keys.a||touch.left)moveX-=1;if(keys.d||touch.right)moveX+=1;if(keys.arrowleft||touch.turnleft)angle-=1.7*dt;if(keys.arrowright||touch.turnright)angle+=1.7*dt;let vx=(Math.cos(angle)*moveY-Math.sin(angle)*moveX)*speed,vy=(Math.sin(angle)*moveY+Math.cos(angle)*moveX)*speed;if(!wall(px+vx,py))px+=vx;if(!wall(px,py+vy))py+=vy;
- if((keys.w||keys.a||keys.s||keys.d||keys.arrowup||keys.arrowdown)&&performance.now()-lastStepSound>360){sfx('step');lastStepSound=performance.now()}if(alienAlive&&doorOpen){let dx=px-alienX,dy=py-alienY,d=Math.hypot(dx,dy);if(d>0.65){let sp=.65*dt,nx=alienX+dx/d*sp,ny=alienY+dy/d*sp;if(!wall(nx,alienY))alienX=nx;if(!wall(alienX,ny))alienY=ny}else{health=Math.max(0,health-17*dt);damageFlash=.16;$('hp').textContent=Math.round(health)+'%';if(health<=0){playing=false;$('screen').style.display='flex';$('screen').querySelector('.panel').innerHTML='<div class="eyebrow">СВЯЗЬ ПОТЕРЯНА</div><h1>СИГНАЛ <span>ПРЕРВАН</span></h1><p class="sub">Тебя настигло существо. Перезапусти смену и попробуй снова.</p><button onclick="location.reload()">ПОВТОРИТЬ</button>'}}}
+ if(Math.hypot(vx,vy)>.001&&performance.now()-lastStepSound>360){sfx('step');lastStepSound=performance.now()}if(alienAlive&&doorOpen){let dx=px-alienX,dy=py-alienY,d=Math.hypot(dx,dy);if(d>0.65){let sp=.65*dt,nx=alienX+dx/d*sp,ny=alienY+dy/d*sp;if(!wall(nx,alienY))alienX=nx;if(!wall(alienX,ny))alienY=ny}else{health=Math.max(0,health-17*dt);damageFlash=.16;$('hp').textContent=Math.round(health)+'%';if(health<=0){playing=false;$('screen').style.display='flex';$('screen').querySelector('.panel').innerHTML='<div class="eyebrow">СВЯЗЬ ПОТЕРЯНА</div><h1>СИГНАЛ <span>ПРЕРВАН</span></h1><p class="sub">Тебя настигло существо. Перезапусти смену и попробуй снова.</p><button onclick="location.reload()">ПОВТОРИТЬ</button>'}}}
  if(shotFlash>0)shotFlash-=dt;if(toastTimer>0){toastTimer-=dt;if(toastTimer<=0)$('toast').style.display='none'}interactHint();$('armor').textContent=armor+'%';}
 function loop(t){let dt=Math.min(.04,(t-last)/1000||0);last=t;update(dt);render();requestAnimationFrame(loop)}
-$('start').onclick=()=>{playing=true;startAmbient();sfx('use');$('screen').style.display='none';window.focus();cv.focus({preventScroll:true});cv.requestPointerLock?.();say([['ДИСПЕТЧЕР','Объект «Каскад», ответь. Мы потеряли связь с нижним уровнем. Проверь передатчик и не геройствуй.'],['СИСТЕМА','Цель обновлена: найди записку техника.']])};
+
+const intro=$('intro'),menuScreen=$('screen'),settingsPanel=$('settings'),sensitivityInput=$('sensitivity');
+menuScreen.style.display='none';
+function leaveIntro(){if(intro.style.display==='none')return;intro.style.display='none';menuScreen.style.display='flex';startMenuMusic();}
+intro.addEventListener('click',leaveIntro);
+intro.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();leaveIntro()}});
+$('settingsOpen').onclick=()=>{settingsPanel.style.display='flex';};
+$('settingsClose').onclick=()=>{settingsPanel.style.display='none';};
+sensitivityInput.addEventListener('input',()=>{mouseSensitivity=Number(sensitivityInput.value);$('sensitivityValue').textContent=mouseSensitivity.toFixed(2)+'×';});
+$('settingsFullscreen').onclick=toggleFullscreen;
+$('start').onclick=()=>{stopMenuMusic();playing=true;startAmbient();sfx('use');$('screen').style.display='none';window.focus();cv.focus({preventScroll:true});cv.requestPointerLock?.();say([['ДИСПЕТЧЕР','Объект «Каскад», ответь. Мы потеряли связь с нижним уровнем. Проверь передатчик и не геройствуй.'],['СИСТЕМА','Цель обновлена: найди записку техника.']])};
 async function toggleFullscreen(){try{if(!document.fullscreenElement){const target=document.documentElement;if(target.requestFullscreen)await target.requestFullscreen();else toast('Полный экран не поддерживается этим браузером.')}else{await document.exitFullscreen()}resize();}catch(err){toast('Не удалось включить полный экран. Попробуй клавишу F11.');}}
 $('fullscreenMenu').onclick=toggleFullscreen;
 $('fullscreenBtn').onclick=toggleFullscreen;
@@ -242,7 +298,7 @@ function updateFullscreenButton(){fullscreenButton.style.display=playing?'block'
 document.addEventListener('fullscreenchange',()=>{resize();updateFullscreenButton();});
 
 document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===cv});
-document.addEventListener('mousemove',e=>{if(locked&&playing&&!puzzle){angle+=e.movementX*.0025;pitch=Math.max(-0.78,Math.min(0.78,pitch+e.movementY*.0022));}});
+document.addEventListener('mousemove',e=>{if(locked&&playing&&!puzzle){angle+=e.movementX*.0025*mouseSensitivity;pitch=Math.max(-0.78,Math.min(0.78,pitch+e.movementY*.0022*mouseSensitivity));}});
 // Robust keyboard handling: support both key names and physical WASD keys.
 cv.tabIndex=0;
 function setKey(e,down){
