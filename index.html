@@ -84,7 +84,7 @@ function update(dt){if(!playing||puzzle)return;let speed=2.4*dt,moveX=0,moveY=0;
  if((keys.w||keys.a||keys.s||keys.d||keys.arrowup||keys.arrowdown)&&performance.now()-lastStepSound>360){sfx('step');lastStepSound=performance.now()}if(alienAlive&&doorOpen){let dx=px-alienX,dy=py-alienY,d=Math.hypot(dx,dy);if(d>0.65){let sp=.65*dt,nx=alienX+dx/d*sp,ny=alienY+dy/d*sp;if(!wall(nx,alienY))alienX=nx;if(!wall(alienX,ny))alienY=ny}else{health=Math.max(0,health-17*dt);$('hp').textContent=Math.round(health)+'%';if(health<=0){playing=false;$('screen').style.display='flex';$('screen').querySelector('.panel').innerHTML='<div class="eyebrow">СВЯЗЬ ПОТЕРЯНА</div><h1>СИГНАЛ <span>ПРЕРВАН</span></h1><p class="sub">Тебя настигло существо. Перезапусти смену и попробуй снова.</p><button onclick="location.reload()">ПОВТОРИТЬ</button>'}}}
  if(shotFlash>0)shotFlash-=dt;if(toastTimer>0){toastTimer-=dt;if(toastTimer<=0)$('toast').style.display='none'}interactHint();$('armor').textContent=armor+'%';}
 function loop(t){let dt=Math.min(.04,(t-last)/1000||0);last=t;update(dt);render();requestAnimationFrame(loop)}
-$('start').onclick=()=>{playing=true;startAmbient();sfx('use');$('screen').style.display='none';cv.requestPointerLock?.();say([['ДИСПЕТЧЕР','Объект «Каскад», ответь. Мы потеряли связь с нижним уровнем. Проверь передатчик и не геройствуй.'],['СИСТЕМА','Цель обновлена: найди записку техника.']])};
+$('start').onclick=()=>{playing=true;startAmbient();sfx('use');$('screen').style.display='none';window.focus();cv.focus({preventScroll:true});cv.requestPointerLock?.();say([['ДИСПЕТЧЕР','Объект «Каскад», ответь. Мы потеряли связь с нижним уровнем. Проверь передатчик и не геройствуй.'],['СИСТЕМА','Цель обновлена: найди записку техника.']])};
 async function toggleFullscreen(){try{if(!document.fullscreenElement){const target=document.documentElement;if(target.requestFullscreen)await target.requestFullscreen();else toast('Полный экран не поддерживается этим браузером.')}else{await document.exitFullscreen()}resize();}catch(err){toast('Не удалось включить полный экран. Попробуй клавишу F11.');}}
 $('fullscreenMenu').onclick=toggleFullscreen;
 $('fullscreenBtn').onclick=toggleFullscreen;
@@ -94,13 +94,25 @@ document.addEventListener('fullscreenchange',()=>{resize();updateFullscreenButto
 
 document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===cv});
 document.addEventListener('mousemove',e=>{if(locked&&playing&&!puzzle)angle+=e.movementX*.0025});
-document.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key==='Escape'&&document.pointerLockElement)document.exitPointerLock();if(e.key.toLowerCase()==='e')interact();if(e.key.toLowerCase()==='r')reload();if(e.key===' '&&playing)shoot()});
-document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+// Robust keyboard handling: support both key names and physical WASD keys.
+cv.tabIndex=0;
+function setKey(e,down){
+ const k=(e.key||'').toLowerCase();
+ const code=e.code||'';
+ const aliases={KeyW:'w',KeyA:'a',KeyS:'s',KeyD:'d',ArrowUp:'arrowup',ArrowDown:'arrowdown',ArrowLeft:'arrowleft',ArrowRight:'arrowright',KeyE:'e',KeyR:'r',Space:' '};
+ const key=aliases[code]||k;
+ if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' '].includes(key)) e.preventDefault();
+ if(down){keys[key]=true;if(key==='e'&&!e.repeat)interact();if(key==='r'&&!e.repeat)reload();if(key===' '&&playing&&!e.repeat)shoot();if(key==='escape'&&document.pointerLockElement)document.exitPointerLock();}
+ else keys[key]=false;
+}
+window.addEventListener('keydown',e=>setKey(e,true),{passive:false});
+window.addEventListener('keyup',e=>setKey(e,false),{passive:false});
+window.addEventListener('blur',()=>{keys={};touch={}});
 cv.addEventListener('mousedown',e=>{if(!playing)return;if(dialog){nextLine();return}if(puzzle)return;if(!locked){cv.requestPointerLock?.();return}if(e.button===0)shoot()});
 cv.addEventListener('click',()=>{if(!playing)return;if(dialog)nextLine();else if(!locked&&!puzzle)cv.requestPointerLock?.()});
 document.addEventListener('contextmenu',e=>e.preventDefault());
 for(const b of document.querySelectorAll('[data-m]')){const k=b.dataset.m;b.addEventListener('touchstart',e=>{e.preventDefault();touch[k]=true;if(k==='use')interact();if(k==='fire')shoot()},{passive:false});b.addEventListener('touchend',e=>{e.preventDefault();touch[k]=false},{passive:false});b.addEventListener('mousedown',()=>{touch[k]=true;if(k==='use')interact();if(k==='fire')shoot()});b.addEventListener('mouseup',()=>touch[k]=false)}
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&puzzle)closePuzzle()});
+window.addEventListener('keydown',e=>{if(e.key==='Enter'&&puzzle)closePuzzle()});
 requestAnimationFrame(loop);
 })();
 </script></body></html>
