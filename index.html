@@ -113,18 +113,22 @@ function tone(freq=440,duration=.08,type='sawtooth',volume=.035,endFreq=null){tr
 function noise(duration=.12,volume=.025,filter=700){try{const ac=audio(),n=Math.floor(ac.sampleRate*duration),buf=ac.createBuffer(1,n,ac.sampleRate),data=buf.getChannelData(0);for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*(1-i/n);const src=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();src.buffer=buf;f.type='lowpass';f.frequency.value=filter;g.gain.value=volume;src.connect(f);f.connect(g);g.connect(ac.destination);src.start()}catch(e){}}
 function sfx(kind){if(kind==='shot'){tone(weaponMode===1?105:150,.14,'sawtooth',.09,55);tone(weaponMode===1?520:900,.055,'square',.025,220);noise(weaponMode===1?.18:.1,weaponMode===1?.06:.045,1400);tone(58,.2,'sine',.03,28)}else if(kind==='reload'){noise(.22,.04,850);tone(300,.09,'triangle',.03,500)}else if(kind==='use'){tone(620,.08,'sine',.035,880)}else if(kind==='hit'){tone(110,.2,'sawtooth',.07,40);noise(.14,.045,500)}else if(kind==='power'){tone(90,.55,'sawtooth',.04,35);tone(220,.4,'sine',.025,70)}else if(kind==='step'){noise(.055,.018,210);tone(72,.045,'triangle',.012,48)}else if(kind==='alarm'){tone(440,.28,'sawtooth',.025,330)}}
 
-// Оригинальная процедурная sci-fi тема меню; это не запись Hazardous Environments.
+// Оригинальная индустриальная sci-fi тема меню: медленные синтезаторные слои и тревожный мотив. Не копирует существующий саундтрек.
 function startMenuMusic(){
  if(menuMusicOn)return;menuMusicOn=true;
  try{
   const ac=audio();if(ac.state==='suspended')ac.resume();
-  const master=ac.createGain();master.gain.value=.12;master.connect(ac.destination);
-  const notes=[55,65.41,73.42,82.41,65.41,55,49,61.74];
-  const melody=[220,0,261.63,0,293.66,261.63,196,0,220,0,164.81,0,196,220,146.83,0];
+  const master=ac.createGain();master.gain.value=.105;master.connect(ac.destination);
+  const low=ac.createOscillator(),lowGain=ac.createGain(),lowFilter=ac.createBiquadFilter();
+  low.type='sawtooth';low.frequency.value=55;lowFilter.type='lowpass';lowFilter.frequency.value=125;lowGain.gain.value=.16;low.connect(lowFilter);lowFilter.connect(lowGain);lowGain.connect(master);low.start();
+  const pad=ac.createOscillator(),padGain=ac.createGain(),padFilter=ac.createBiquadFilter();
+  pad.type='triangle';pad.frequency.value=110;padFilter.type='lowpass';padFilter.frequency.value=380;padGain.gain.value=.045;pad.connect(padFilter);padFilter.connect(padGain);padGain.connect(master);pad.start();
+  const notes=[55,65.41,73.42,61.74,49,58.27,65.41,55,46.25,61.74,73.42,58.27];
+  const melody=[164.81,0,196,220,0,146.83,0,174.61,196,0,130.81,0,164.81,146.83,0,110];
   let step=0;
-  const play=(freq,dur,vol,type='triangle')=>{if(!freq)return;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(.0001,ac.currentTime);g.gain.linearRampToValueAtTime(vol,ac.currentTime+.08);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+dur);o.connect(g);g.connect(master);o.start();o.stop(ac.currentTime+dur+.02)};
-  const tick=()=>{if(!menuMusicOn)return;const n=step%notes.length;play(notes[n],1.65,.075,'sine');play(notes[n]*2,0.85,.018,'sine');play(melody[step%melody.length],.72,.026,'triangle');step++};
-  tick();menuMusicTimer=setInterval(tick,620);
+  const play=(freq,dur,vol,type='triangle')=>{if(!freq)return;const o=ac.createOscillator(),g=ac.createGain(),f=ac.createBiquadFilter();o.type=type;o.frequency.setValueAtTime(freq,ac.currentTime);f.type='lowpass';f.frequency.value=type==='sine'?700:1100;g.gain.setValueAtTime(.0001,ac.currentTime);g.gain.linearRampToValueAtTime(vol,ac.currentTime+.22);g.gain.setTargetAtTime(.0001,ac.currentTime+dur*.58,Math.max(.08,dur*.18));o.connect(f);f.connect(g);g.connect(master);o.start();o.stop(ac.currentTime+dur+.12)};
+  const tick=()=>{if(!menuMusicOn)return;const n=step%notes.length;low.frequency.setTargetAtTime(notes[n],ac.currentTime,.3);pad.frequency.setTargetAtTime(notes[(n+3)%notes.length]*2,ac.currentTime,.45);play(melody[step%melody.length],1.45,.022,'triangle');if(step%3===0)play(notes[n]*4,2.1,.012,'sine');step++};
+  tick();menuMusicTimer=setInterval(tick,850);
   window._blackSignalMenuGain=master;
  }catch(e){}
 }
