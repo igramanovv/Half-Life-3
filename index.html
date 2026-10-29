@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>HALF-LIFE 3: BLACK SIGNAL — Version 1.4</title>
+<title>HALF-LIFE 3: BLACK SIGNAL — Version 1.4.1</title>
 <style>
 :root{--g:#9cff7a;--c:#79e7ff}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050809;color:#eaf1ee;font-family:Arial,sans-serif}canvas{display:block;width:100%;height:100%}
 #hud{position:fixed;inset:0;pointer-events:none;text-shadow:0 2px 6px #000}#brand{position:absolute;left:16px;top:14px;font-size:11px;letter-spacing:2px;color:#bdc9c4}#brand b{color:var(--g)}#objective{position:absolute;right:15px;top:14px;max-width:260px;background:#061013dc;border-right:2px solid var(--g);padding:10px 12px;text-align:right;font-size:12px;line-height:1.45}#objective small{display:block;color:var(--g);letter-spacing:1.5px;margin-bottom:4px}#cross{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%)}#cross:before,#cross:after{content:"";position:absolute;background:#e5ffe8;box-shadow:0 0 5px var(--g)}#cross:before{width:1px;height:14px;left:7px;top:1px}#cross:after{height:1px;width:14px;left:1px;top:7px}#stats{position:absolute;bottom:15px;left:15px;background:#061013dd;border:1px solid #ffffff22;padding:9px 12px;font-size:11px;line-height:1.7}#stats strong{color:var(--g);font-size:15px}#weapon{position:absolute;right:17px;bottom:16px;text-align:right;background:#061013dd;padding:9px 12px;font-size:11px;border:1px solid #ffffff22}#weapon strong{font-size:15px;color:var(--c)}#hint,#toast{display:none;position:absolute;left:50%;transform:translateX(-50%);background:#020708e8;border:1px solid #9cff7a66;padding:10px 14px;text-align:center;font-size:13px;max-width:90vw}#hint{bottom:19%}#toast{top:68%;color:#d2ffd9}
@@ -12,7 +12,7 @@
 </style></head><body>
 <canvas id="cv"></canvas>
 <div id="hud"><div id="brand"><b>BLACK SIGNAL</b> // FAN PROTOTYPE</div><div id="objective"><small>ТЕКУЩАЯ ЦЕЛЬ</small><span id="goal">Найти источник сигнала</span></div><div id="cross"></div><div id="hint"></div><div id="toast"></div><div id="stats">ЗДОРОВЬЕ: <strong id="hp">100%</strong><br>БРОНЯ: <span id="armor">25%</span><br>ПРОГРЕСС: <span id="prog">0/3</span></div><div id="weapon"><span id="weaponName">ИМПУЛЬСНЫЙ ПИСТОЛЕТ</span><br><strong id="ammo">12 / ∞</strong></div></div>
-<div id="screen"><div class="panel"><div class="menu-copy"><div class="eyebrow">VERSION 1.4 // BLACK SIGNAL UPDATE</div><h1>HALF-LIFE <span>3</span></h1><div style="color:#79e7ff;letter-spacing:4px;font-size:12px;margin:10px 0 18px">BLACK SIGNAL</div><p class="sub">Сигнал из комплекса «Каскад» снова ожил. Гордон Фримен отправляется в заброшенный исследовательский сектор, где после аварии реальность начала вести себя странно.</p><p class="sub">Версия 1.4: сектор X-9, новые угрозы и оружие. Найди источник передачи, восстанови питание комплекса и выясни, что скрывается по ту сторону сигнала.</p><div class="menu-actions"><button id="start">НАЧАТЬ СМЕНУ</button><button id="fullscreenMenu" class="secondary">ПОЛНЫЙ ЭКРАН ⛶</button></div><div class="small">WASD — движение · мышь — обзор · E — взаимодействие · ЛКМ/Space — огонь · 1/2 — оружие · R — перезарядка · ESC — отпустить мышь<br>На телефоне: экранные кнопки, тап по экрану — взаимодействие.</div></div><div class="gordon-art" aria-label="Портрет Гордона Фримена">
+<div id="screen"><div class="panel"><div class="menu-copy"><div class="eyebrow">VERSION 1.4.1 // BLACK SIGNAL UPDATE</div><h1>HALF-LIFE <span>3</span></h1><div style="color:#79e7ff;letter-spacing:4px;font-size:12px;margin:10px 0 18px">BLACK SIGNAL</div><p class="sub">Сигнал из комплекса «Каскад» снова ожил. Гордон Фримен отправляется в заброшенный исследовательский сектор, где после аварии реальность начала вести себя странно.</p><p class="sub">Версия 1.4.1: свободный обзор камеры вверх, вниз и вокруг. Исследуй сектор X-9, используй новое оружие и выясни, что скрывается по ту сторону сигнала.</p><div class="menu-actions"><button id="start">НАЧАТЬ СМЕНУ</button><button id="fullscreenMenu" class="secondary">ПОЛНЫЙ ЭКРАН ⛶</button></div><div class="small">WASD — движение · мышь — обзор · E — взаимодействие · ЛКМ/Space — огонь · 1/2 — оружие · R — перезарядка · ESC — отпустить мышь<br>На телефоне: экранные кнопки, тап по экрану — взаимодействие.</div></div><div class="gordon-art" aria-label="Портрет Гордона Фримена">
 <svg viewBox="0 0 420 560" role="img" aria-label="Гордон Фримен в детализированном оранжевом HEV-костюме">
 <defs>
  <linearGradient id="hev" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffbd62"/><stop offset=".42" stop-color="#d8752c"/><stop offset="1" stop-color="#6d321b"/></linearGradient>
@@ -69,7 +69,7 @@
 const cv=document.getElementById('cv'),c=cv.getContext('2d');let W,H;
 function resize(){W=Math.max(1,window.innerWidth);H=Math.max(1,window.innerHeight);cv.width=W;cv.height=H;cv.style.width='100%';cv.style.height='100%'}addEventListener('resize',resize);document.addEventListener('fullscreenchange',resize);window.addEventListener('orientationchange',()=>setTimeout(resize,80));resize();
 let map=["1111111111111111","1000000000000001","1000100000100001","1000100000100001","1000000000000001","1011101110111001","1000001000000001","1000001000000001","1000000000000001","1110101110101111","1000000000000001","1000000000000001","1000100000100001","1000100000100001","1000000000000001","1111111111111111"];
-let px=2.5,py=8.5,angle=0,health=100,armor=25,ammo=12,playing=false,doorOpen=false,power=false,noteRead=false,terminalDone=false,signalOn=false,alienAlive=true,alienHP=3,alienX=10.5,alienY=11.5,shotFlash=0,toastTimer=0,dialog=null,puzzle=false,code='',keys={},touch={},last=0,stepTime=0,win=false,locked=false;
+let px=2.5,py=8.5,angle=0,pitch=0,health=100,armor=25,ammo=12,playing=false,doorOpen=false,power=false,noteRead=false,terminalDone=false,signalOn=false,alienAlive=true,alienHP=3,alienX=10.5,alienY=11.5,shotFlash=0,toastTimer=0,dialog=null,puzzle=false,code='',keys={},touch={},last=0,stepTime=0,win=false,locked=false;
 let zone=0,weaponMode=0,shotgunAmmo=6,extraEnemies=[],damageFlash=0,ambientParticles=[];
 const mapSectorX9=["1111111111111111","1000000000000001","1011000011100001","1000000000100001","1000111000100001","1000000000000001","1110101110111001","1000001000000001","1000001000000001","1000000000000001","1011101110101101","1000000000000001","1000000111000001","1000000000000001","1000000000000001","1111111111111111"];
 const objsSectorX9=[{x:4.5,y:2.5,t:'note',name:'Журнал X-9'},{x:11.5,y:4.5,t:'panel',name:'Релейный щит'},{x:5.5,y:12.5,t:'terminal',name:'Станция чёрного сигнала'},{x:13.5,y:11.5,t:'door',name:'Выход из сектора'}];
@@ -96,7 +96,7 @@ function selectWeapon(mode){
  toast(weaponMode===0?'ИМПУЛЬСНЫЙ ПИСТОЛЕТ':'ТАКТИЧЕСКИЙ ДРОБОВИК');
 }
 function transitionToX9(){
- zone=1;map=mapSectorX9;objs=objsSectorX9;px=2.5;py=13.5;angle=-Math.PI/2;
+ zone=1;map=mapSectorX9;objs=objsSectorX9;px=2.5;py=13.5;angle=-Math.PI/2;pitch=0;
  doorOpen=false;power=false;noteRead=false;terminalDone=false;signalOn=false;
  alienAlive=true;alienHP=5;alienX=11.5;alienY=8.5;extraEnemies=[{x:8.5,y:5.5,hp:2,alive:true,speed:.82}];
  objective('Сектор X-9: найти станцию сигнала');progress();sfx('alarm');
@@ -191,7 +191,7 @@ function drawWorldFloor(horizon,fov){
  floorCtx.putImageData(floorImage,0,0);c.save();c.imageSmoothingEnabled=true;c.drawImage(floorCanvas,0,0,W,H);c.restore();
 }
 function render(){
- const horizon=H*.49;c.fillStyle='#05090b';c.fillRect(0,0,W,H);
+ const horizon=H*.49-pitch*H*.55;c.fillStyle='#05090b';c.fillRect(0,0,W,H);
  // Ceiling: the floor is rendered separately in world space, not painted as screen-locked lines.
  let g=c.createLinearGradient(0,0,0,H*.55);g.addColorStop(0,zone===1?'#03080c':'#05090b');g.addColorStop(.72,'#172426');g.addColorStop(1,'#293535');c.fillStyle=g;c.fillRect(0,0,W,horizon);
  const fov=Math.PI/2.8,strip=Math.max(1,Math.floor(W/700));
@@ -242,7 +242,7 @@ function updateFullscreenButton(){fullscreenButton.style.display=playing?'block'
 document.addEventListener('fullscreenchange',()=>{resize();updateFullscreenButton();});
 
 document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===cv});
-document.addEventListener('mousemove',e=>{if(locked&&playing&&!puzzle)angle+=e.movementX*.0025});
+document.addEventListener('mousemove',e=>{if(locked&&playing&&!puzzle){angle+=e.movementX*.0025;pitch=Math.max(-0.78,Math.min(0.78,pitch+e.movementY*.0022));}});
 // Robust keyboard handling: support both key names and physical WASD keys.
 cv.tabIndex=0;
 function setKey(e,down){
