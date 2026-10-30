@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>HALF-LIFE 3: BLACK SIGNAL — Version 1.4.4</title>
 <style>
-:root{--g:#9cff7a;--c:#79e7ff}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050809;color:#eaf1ee;font-family:Arial,sans-serif}canvas{touch-action:none;display:block;width:100%;height:100%}
+:root{--g:#9cff7a;--c:#79e7ff}*{box-sizing:border-box}html,body{touch-action:none;overscroll-behavior:none;margin:0;width:100%;height:100%;overflow:hidden;background:#050809;color:#eaf1ee;font-family:Arial,sans-serif}canvas{touch-action:pan-x pan-y;display:block;width:100%;height:100%}
 #hud{position:fixed;inset:0;pointer-events:none;text-shadow:0 2px 6px #000}#brand{position:absolute;left:16px;top:14px;font-size:11px;letter-spacing:2px;color:#bdc9c4}#brand b{color:var(--g)}#objective{position:absolute;right:15px;top:14px;max-width:260px;background:#061013dc;border-right:2px solid var(--g);padding:10px 12px;text-align:right;font-size:12px;line-height:1.45}#objective small{display:block;color:var(--g);letter-spacing:1.5px;margin-bottom:4px}#cross{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%)}#cross:before,#cross:after{content:"";position:absolute;background:#e5ffe8;box-shadow:0 0 5px var(--g)}#cross:before{width:1px;height:14px;left:7px;top:1px}#cross:after{height:1px;width:14px;left:1px;top:7px}#stats{position:absolute;bottom:15px;left:15px;background:#061013dd;border:1px solid #ffffff22;padding:9px 12px;font-size:11px;line-height:1.7}#stats strong{color:var(--g);font-size:15px}#weapon{position:absolute;right:17px;bottom:16px;text-align:right;background:#061013dd;padding:9px 12px;font-size:11px;border:1px solid #ffffff22}#weapon strong{font-size:15px;color:var(--c)}#hint,#toast{display:none;position:absolute;left:50%;transform:translateX(-50%);background:#020708e8;border:1px solid #9cff7a66;padding:10px 14px;text-align:center;font-size:13px;max-width:90vw}#hint{bottom:19%}#toast{top:68%;color:#d2ffd9}
 #screen{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,30px);overflow:auto;background:radial-gradient(ellipse at 68% 42%,#1b3438ee,#030607f7 72%)}.panel{position:relative;width:min(1060px,100%);min-height:min(560px,92vh);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(220px,.9fr);align-items:center;gap:clamp(18px,3vw,38px);background:linear-gradient(115deg,#071013f7 0%,#071013ee 56%,#091719df 100%);border:1px solid #9cff7a66;padding:clamp(20px,4vw,42px);box-shadow:0 0 70px #000;overflow:hidden}.menu-copy{position:relative;z-index:1}.gordon-art{position:relative;align-self:stretch;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#31514b88,transparent 65%)}.gordon-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#071013 0%,transparent 35%,#07101355 100%);pointer-events:none}.gordon-art svg,.gordon-art .gordon-image{position:absolute;inset:0;height:100%;width:100%;max-width:none;max-height:none;object-fit:cover;object-position:50% 38%;filter:drop-shadow(0 0 22px #9cff7a22)}.menu-actions{display:flex;flex-wrap:wrap;gap:8px}.menu-actions button{margin-top:15px}.secondary{background:#17272a;color:#d9e8e2;border:1px solid #79e7ff66}.fullscreen-toggle{position:fixed;z-index:2;top:48px;left:15px;margin:0;padding:9px 11px;background:#061013dd;color:#dfffe4;border:1px solid #9cff7a77;font-size:10px;pointer-events:auto;display:none}#hud{pointer-events:none}#hud #brand{pointer-events:none}@media(max-width:680px){.panel{grid-template-columns:1fr;gap:8px;min-height:auto}.gordon-art{min-height:180px;height:230px;max-height:230px;grid-row:1}.gordon-art svg,.gordon-art .gordon-image{height:100%;width:100%;object-fit:cover;object-position:50% 38%}.gordon-art:after{background:linear-gradient(0deg,#071013 0%,transparent 35%,#07101333 100%)}.menu-copy{grid-row:2}#objective{max-width:190px;font-size:10px}}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--g);margin-bottom:14px}h1{font-size:clamp(32px,7vw,58px);line-height:.95;margin:0;letter-spacing:-2px}h1 span{color:var(--g)}.sub{color:#aebbb6;line-height:1.6;font-size:14px;max-width:500px}button{border:0;background:var(--g);color:#07110a;font-weight:bold;letter-spacing:1px;padding:13px 18px;cursor:pointer;margin-top:15px}button:hover{filter:brightness(1.15)}.small{font-size:11px;color:#82918b;line-height:1.7;margin-top:17px}
 #dialogue{display:none;position:fixed;z-index:4;left:50%;bottom:5%;transform:translateX(-50%);width:min(700px,92vw);background:#04090cee;border:1px solid #79e7ff77;padding:17px 20px;box-shadow:0 10px 40px #000}#who{font-size:10px;color:var(--c);letter-spacing:2px;margin-bottom:7px}#line{font-size:15px;line-height:1.5}#next{font-size:10px;color:var(--g);letter-spacing:1.5px;text-align:right;margin-top:10px}
@@ -326,6 +326,36 @@ cv.addEventListener('pointermove',e=>{
 });
 function endLook(e){if(e.pointerId===lookPointer)lookPointer=null;}
 cv.addEventListener('pointerup',endLook);cv.addEventListener('pointercancel',endLook);
+// Mobile look: track a finger anywhere outside the movement/action controls.
+// Use Touch Events as a fallback because some mobile browsers do not reliably
+// deliver Pointer Events to a fullscreen canvas.
+let mobileLookId=null,mobileLookX=0,mobileLookY=0;
+function isMobileControl(target){return !!(target&&target.closest&&target.closest('#mobile'));}
+document.addEventListener('touchstart',e=>{
+ if(!playing||puzzle)return;
+ for(const t of e.changedTouches){
+  if(isMobileControl(e.target))continue;
+  if(mobileLookId===null){mobileLookId=t.identifier;mobileLookX=t.clientX;mobileLookY=t.clientY;break;}
+ }
+},{passive:false});
+document.addEventListener('touchmove',e=>{
+ if(mobileLookId===null||!playing||puzzle)return;
+ for(const t of e.changedTouches){
+  if(t.identifier!==mobileLookId)continue;
+  e.preventDefault();
+  const dx=t.clientX-mobileLookX,dy=t.clientY-mobileLookY;
+  mobileLookX=t.clientX;mobileLookY=t.clientY;
+  angle+=dx*.006*mouseSensitivity;
+  pitch=Math.max(-.78,Math.min(.78,pitch+dy*.004*mouseSensitivity));
+  break;
+ }
+},{passive:false});
+function stopMobileLook(e){
+ for(const t of e.changedTouches){if(t.identifier===mobileLookId){mobileLookId=null;break;}}
+}
+document.addEventListener('touchend',stopMobileLook,{passive:true});
+document.addEventListener('touchcancel',stopMobileLook,{passive:true});
+
 
 window.addEventListener('keydown',e=>{if(e.key==='Enter'&&puzzle)closePuzzle()});
 requestAnimationFrame(loop);
