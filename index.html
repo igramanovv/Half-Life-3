@@ -111,6 +111,9 @@ function stopMenuMusic(){
   menuTrack.currentTime=0;
  }
 }
+// Пробуем запустить музыку сразу при загрузке, чтобы она сопровождала первую заставку.
+// Если браузер блокирует autoplay, leaveIntro() повторит запуск после первого нажатия.
+startMenuMusic();
 function startAmbient(){if(ambientStarted)return;ambientStarted=true;try{const ac=audio(),o=ac.createOscillator(),g=ac.createGain(),f=ac.createBiquadFilter();o.type='sawtooth';o.frequency.value=48;f.type='lowpass';f.frequency.value=95;g.gain.value=.018;o.connect(f);f.connect(g);g.connect(ac.destination);o.start()}catch(e){}}
 function progress(){$('prog').textContent=[noteRead,power,terminalDone].filter(Boolean).length+'/3'}
 function selectWeapon(mode){
